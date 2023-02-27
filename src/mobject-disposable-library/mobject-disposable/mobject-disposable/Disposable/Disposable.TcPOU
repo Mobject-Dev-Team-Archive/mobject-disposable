@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Disposable" Id="{7157366b-07e8-46fc-aa2f-38c2e2eab868}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK ABSTRACT Disposable IMPLEMENTS I_Disposable
+VAR
+	disposeState : (IDLE, IMPLICITLY_CALLED, IMPLICITLY_CALLED_ON_DISPOSE, EXPLICITLY_CALLED_ON_DISPOSE, ON_DISPOSE_CANCELLED);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Destructor" Id="{a244c56d-214c-0539-02cc-30986d16b566}" />
+    <Folder Name="Protected" Id="{6667bda1-abca-422c-8122-12e92228bc13}" />
+    <Method Name="Dispose" Id="{6c98f403-5dd6-4f9d-bc0a-e406c48a07a8}">
+      <Declaration><![CDATA[METHOD Dispose
+VAR
+	cancel : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE disposeState OF
+	
+	IDLE: 
+	
+		disposeState := EXPLICITLY_CALLED_ON_DISPOSE;
+		cancel := OnDispose(TRUE);
+		
+	IMPLICITLY_CALLED:
+	
+		disposeState := IMPLICITLY_CALLED_ON_DISPOSE;
+		OnDispose(FALSE);
+		RETURN;	
+	
+END_CASE
+
+IF cancel THEN
+	disposeState := ON_DISPOSE_CANCELLED;
+	RETURN;
+END_IF
+
+__DELETE(THIS);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{0d1dd945-173c-0626-2abd-474b81e0db04}" FolderPath="Destructor\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF disposeState = IDLE THEN
+	disposeState := IMPLICITLY_CALLED;
+	Dispose();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnDispose" Id="{349cfa6c-1d32-4721-9a07-8f628551b64b}" FolderPath="Protected\">
+      <Declaration><![CDATA[METHOD PROTECTED ABSTRACT OnDispose : BOOL
+VAR_INPUT
+	CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Returning true will cancel the disposal. If you cancel it, then you must call Dispose or __DELETE when you are ready for the final disposal.]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MockDisposableWithCancel" Id="{d813f4f1-7e58-4dcd-8ca9-84243873bb25}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK MockDisposableWithCancel EXTENDS Disposable
+VAR
+	disposedCounterFlag : REFERENCE TO INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{623f9a11-f495-4206-9236-e239fbf01215}" />
+    <Method Name="FB_init" Id="{73b6840d-cd00-4f85-80d0-2190d0b79017}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	DisposedCounterFlag : REFERENCE TO INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.disposedCounterFlag REF= DisposedCounterFlag;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnDispose" Id="{281c7c0f-55e1-4f89-afd4-67032a812334}">
+      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
+VAR_INPUT
+	CalledExplicitly : BOOL; 
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[DisposedCounterFlag := DisposedCounterFlag + 1;
+OnDispose := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

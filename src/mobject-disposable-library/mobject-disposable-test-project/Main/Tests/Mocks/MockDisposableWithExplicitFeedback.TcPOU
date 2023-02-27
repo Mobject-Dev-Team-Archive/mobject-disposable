@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MockDisposableWithExplicitFeedback" Id="{8d531bba-acee-4026-a10d-ea8d7da63aea}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK MockDisposableWithExplicitFeedback EXTENDS Disposable
+VAR
+	explicitFlag : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{55561025-6091-4858-8e6f-0343d42667bf}" />
+    <Method Name="FB_init" Id="{ac4392e3-e3b9-4f03-b2eb-8eae04161761}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	ExplicitFlag : REFERENCE TO BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.explicitFlag REF= ExplicitFlag;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnDispose" Id="{58c4d239-4cd2-4eb8-a6c6-285efd973e91}">
+      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
+VAR_INPUT
+	CalledExplicitly : BOOL; 
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[explicitFlag := CalledExplicitly;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
