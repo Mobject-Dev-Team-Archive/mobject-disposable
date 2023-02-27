@@ -38,3 +38,7 @@ pre {
 .github-corner svg {
     fill: #383d41;
 }
+
+a {
+    text-decoration: none;
+}
