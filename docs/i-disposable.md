@@ -11,7 +11,7 @@
 
 ## Remarks
 
-The Disposable Abstract Class is a utility class that allows objects to handle being destroyed in a consistent manor.
+The I_Disposable interface should be implemented by any class which supports the Dispose() method.
 
 ## Example
 
@@ -27,8 +27,6 @@ END_VAR
 
 ```declaration
 METHOD Dispose
-VAR_INPUT
-END_VAR
 ```
 
 ```body
