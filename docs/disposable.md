@@ -59,9 +59,9 @@ N/A
 myObject.Dispose()
 ```
 
-### Abstract OnDispose() : BOOL;
+### Protected OnDispose() : BOOL;
 
-This method must be implemented by the concrete class.
+This method should be implemented by the concrete class if that class needs to dispose of other components.
 
 OnDispose will be called explicitly by the Dispose() method, or from someone calling \_\_DELETE on the object, or by TwinCAT when it destroys the object.
 
