@@ -4,8 +4,13 @@
 
 - mobject-disposable
 
-  - [Disposable](disposable.md)
-  - [I_Disposable](i-disposable.md)
+  - Classes
+
+    - [Disposable](disposable.md)
+
+  - Interfaces
+
+    - [I_Disposable](i-disposable.md)
 
 - Guides
 
