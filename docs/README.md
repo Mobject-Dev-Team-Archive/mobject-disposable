@@ -20,6 +20,6 @@ mobject's goal is to be a lightweight solution to typical oop problems.
 
 The mobject-disposable library provides a consistent way to handle the lifecycle of objects in an industrial control system. It includes an abstract class Disposable and an interface I_Disposable that can be implemented by classes that need to handle the deletion of objects.
 
-Using this library ensures that objects are properly disposed of, which helps to prevent memory leaks and resource allocation issues. The Disposable class provides a consistent implementation of the OnDispose() method, which can be used by derived classes to handle the release of any resources or objects they own. The I_Disposable interface provides a common interface for objects that have a responsibility to delete others. This makes it easy to manage the lifecycle of objects in a complex system.
+The I_Disposable interface provides a common interface for objects that have a responsibility to delete others. This makes it easy to manage the lifecycle of objects in a complex system.
 
 Overall, the mobject-disposable library helps to improve the reliability and maintainability of industrial control systems by providing a consistent way to handle the deletion of objects.

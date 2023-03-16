@@ -25,17 +25,6 @@ END_VAR
 //... no code should go here.
 ```
 
-```declaration
-METHOD Dispose
-```
-
-```body
-
-// Here you should dispose of any objects your object owns or manages.
-// ...
-
-```
-
 ## Methods
 
 ### Dispose()

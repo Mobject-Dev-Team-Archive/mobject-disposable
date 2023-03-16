@@ -6,21 +6,18 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[OnDisposeCalledFromDisposeMethod();
-OnDisposeCalledByManuallyDeleting();
-OnDisposeOnlyCalledOnceDuringCancel();
-OnDisposeCalledWithExplicitFlagFalse();
-OnDisposeCalledWithExplicitFlagTrue();]]></ST>
+      <ST><![CDATA[DisposedFromDisposeMethod();
+DisposedByManuallyDeleting();]]></ST>
     </Implementation>
-    <Method Name="OnDisposeCalledByManuallyDeleting" Id="{53f28239-f13a-41de-aa9f-47d3ff4c2a4d}">
-      <Declaration><![CDATA[METHOD PUBLIC OnDisposeCalledByManuallyDeleting
+    <Method Name="DisposedByManuallyDeleting" Id="{53f28239-f13a-41de-aa9f-47d3ff4c2a4d}">
+      <Declaration><![CDATA[METHOD PUBLIC DisposedByManuallyDeleting
 VAR
 	mockDispose : POINTER TO MockDisposable;
 	disposed : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('OnDisposeCalledByManuallyDeleting');
+        <ST><![CDATA[TEST('DisposedByManuallyDeleting');
 
 // @TEST-FIXTURE
 mockDispose := __NEW(MockDisposable(DisposedFlag:=disposed));
@@ -37,15 +34,15 @@ AssertTrue(
 TEST_FINISHED();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="OnDisposeCalledFromDisposeMethod" Id="{f6d78085-e7eb-482f-b15d-638e7798de7e}">
-      <Declaration><![CDATA[METHOD PUBLIC OnDisposeCalledFromDisposeMethod
+    <Method Name="DisposedFromDisposeMethod" Id="{f6d78085-e7eb-482f-b15d-638e7798de7e}">
+      <Declaration><![CDATA[METHOD PUBLIC DisposedFromDisposeMethod
 VAR
 	mockDispose : POINTER TO MockDisposable;
 	disposed : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TEST('OnDisposeCalledFromDisposeMethod');
+        <ST><![CDATA[TEST('DisposedFromDisposeMethod');
 
 // @TEST-FIXTURE
 mockDispose := __NEW(MockDisposable(DisposedFlag:=disposed));
@@ -57,84 +54,6 @@ mockDispose^.Dispose();
 AssertTrue(
 	Condition := disposed,
 	Message := 'OnDispose was not correctly triggered in the MockDisposable'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDisposeCalledWithExplicitFlagFalse" Id="{3a5dcb77-aaad-459c-8895-b710f6e010c5}">
-      <Declaration><![CDATA[METHOD PUBLIC OnDisposeCalledWithExplicitFlagFalse
-VAR
-	mockDispose : POINTER TO MockDisposableWithExplicitFeedback;
-	explicit : BOOL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('OnDisposeCalledWithExplicitFlagFalse');
-
-// @TEST-FIXTURE
-mockDispose := __NEW(MockDisposableWithExplicitFeedback(ExplicitFlag:=explicit));
-
-// @TEST-RUN
-__DELETE(mockDispose);
-
-// @TEST-ASSSERT
-AssertFalse(
-	Condition := explicit,
-	Message := 'OnDispose argument CalledExplicitly was not false when called implicitly'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDisposeCalledWithExplicitFlagTrue" Id="{1c28e0a8-a446-43bb-8ecc-5edeb1700d70}">
-      <Declaration><![CDATA[METHOD PUBLIC OnDisposeCalledWithExplicitFlagTrue
-VAR
-	mockDispose : POINTER TO MockDisposableWithExplicitFeedback;
-	explicit : BOOL;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('OnDisposeCalledWithExplicitFlagTrue');
-
-// @TEST-FIXTURE
-mockDispose := __NEW(MockDisposableWithExplicitFeedback(ExplicitFlag:=explicit));
-
-// @TEST-RUN
-mockDispose^.Dispose();
-
-// @TEST-ASSSERT
-AssertTrue(
-	Condition := explicit,
-	Message := 'OnDispose argument CalledExplicitly was not true when called explicitly'
-);
-
-TEST_FINISHED();]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDisposeOnlyCalledOnceDuringCancel" Id="{20e38352-90f3-4ba0-9c2b-439ece13ab5d}">
-      <Declaration><![CDATA[METHOD PUBLIC OnDisposeOnlyCalledOnceDuringCancel
-VAR
-	mockDispose : POINTER TO MockDisposableWithCancel;
-	disposedCount : INT;
-	expected : INT := 1;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[TEST('OnDisposeOnlyCalledOnceDuringCancel');
-
-// @TEST-FIXTURE
-mockDispose := __NEW(MockDisposableWithCancel(DisposedCounterFlag:=disposedCount));
-
-// @TEST-RUN
-mockDispose^.Dispose(); // should trigger OnDisposed which will be cancelled;
-mockDispose^.Dispose(); // should trigger __Delete
-
-// @TEST-ASSSERT
-AssertEquals(
-	Expected := expected,
-	Actual := disposedCount,
-	Message := 'OnDispose was incorrectly triggered more than once following a cancel'
 );
 
 TEST_FINISHED();]]></ST>

@@ -6,40 +6,17 @@
 {attribute 'enable_dynamic_creation'}
 FUNCTION_BLOCK ABSTRACT Disposable IMPLEMENTS I_Disposable
 VAR
-	disposeState : (IDLE, IMPLICITLY_CALLED, IMPLICITLY_CALLED_ON_DISPOSE, EXPLICITLY_CALLED_ON_DISPOSE, ON_DISPOSE_CANCELLED);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Destructor" Id="{a244c56d-214c-0539-02cc-30986d16b566}" />
-    <Folder Name="Protected" Id="{6667bda1-abca-422c-8122-12e92228bc13}" />
     <Method Name="Dispose" Id="{6c98f403-5dd6-4f9d-bc0a-e406c48a07a8}">
       <Declaration><![CDATA[METHOD Dispose
 VAR
-	cancel : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CASE disposeState OF
-	
-	IDLE: 
-	
-		disposeState := EXPLICITLY_CALLED_ON_DISPOSE;
-		cancel := OnDispose(TRUE);
-		
-	IMPLICITLY_CALLED:
-	
-		disposeState := IMPLICITLY_CALLED_ON_DISPOSE;
-		OnDispose(FALSE);
-		RETURN;	
-	
-END_CASE
-
-IF cancel THEN
-	disposeState := ON_DISPOSE_CANCELLED;
-	RETURN;
-END_IF
-
-__DELETE(THIS);]]></ST>
+        <ST><![CDATA[__DELETE(THIS);]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{0d1dd945-173c-0626-2abd-474b81e0db04}" FolderPath="Destructor\">
@@ -49,20 +26,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF disposeState = IDLE THEN
-	disposeState := IMPLICITLY_CALLED;
-	Dispose();
-END_IF]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnDispose" Id="{349cfa6c-1d32-4721-9a07-8f628551b64b}" FolderPath="Protected\">
-      <Declaration><![CDATA[METHOD PROTECTED OnDispose : BOOL
-VAR_INPUT
-	CalledExplicitly : BOOL; // true if disposal was triggered from Dispose()
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[// Returning true will cancel the disposal. If you cancel it, then you must call Dispose or __DELETE when you are ready for the final disposal.]]></ST>
+        <ST><![CDATA[// by default you would return if this is an in copy code, i.e. online change to this class
+IF bInCopyCode THEN
+	RETURN;
+END_IF
+
+// A word of warning.  fb_exit does not NOT operate in the same way as a typical inherited method.  If a child class does not implement fb_exit then it does not
+// gain this one for itself. 
+// The system will automatically call each fb_exit on each layer of inheritance one by one, starting with the child class and making it's way to the parent.
+// Therefore code in here will only be triggered once the system reaches this layer of the object's deletion.  So by this point, the child class and 
+// all of it's variables will already have had fb_exit called by the time we reach this point!]]></ST>
       </Implementation>
     </Method>
   </POU>
