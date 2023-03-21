@@ -11,7 +11,7 @@
 
 ## Remarks
 
-The Disposable Abstract Class is a utility class that allows objects to handle being destroyed in a consistent manor.
+The Disposable Abstract Class is a utility class that allows objects to handle being destroyed in a consistent manner.
 
 ## Example
 

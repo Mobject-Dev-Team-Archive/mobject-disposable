@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{9d67fa5f-b22b-413d-bd2f-078ef7b27582}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	eventEmitter_TestSuit : Disposable_TestSuit;
+	disposable_TestSuite : Disposable_TestSuite;
 END_VAR
 ]]></Declaration>
     <Implementation>
