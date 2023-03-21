@@ -31,11 +31,11 @@ IF bInCopyCode THEN
 	RETURN;
 END_IF
 
-// A word of warning.  fb_exit does not NOT operate in the same way as a typical inherited method.  If a child class does not implement fb_exit then it does not
+// A word of warning. FB_exit does not NOT operate in the same way as a typical inherited method. If a child class does not implement FB_exit then it does not
 // gain this one for itself. 
-// The system will automatically call each fb_exit on each layer of inheritance one by one, starting with the child class and making it's way to the parent.
-// Therefore code in here will only be triggered once the system reaches this layer of the object's deletion.  So by this point, the child class and 
-// all of it's variables will already have had fb_exit called by the time we reach this point!]]></ST>
+// The system will automatically call each FB_exit on each layer of inheritance one by one, starting with the child class and making it's way to the parent.
+// Therefore code in here will only be triggered once the system reaches this layer of the object's deletion. The child class and all of it's variables
+// will already have had FB_exit called by the time we reach this point!]]></ST>
       </Implementation>
     </Method>
   </POU>
