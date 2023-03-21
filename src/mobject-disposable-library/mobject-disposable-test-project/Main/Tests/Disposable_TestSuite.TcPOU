@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Disposable_TestSuit" Id="{5e30d77d-5ab7-4a68-9932-9d53fc3729bd}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Disposable_TestSuit EXTENDS TcUnit.FB_TestSuite
+  <POU Name="Disposable_TestSuite" Id="{5e30d77d-5ab7-4a68-9932-9d53fc3729bd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC Disposable_TestSuite EXTENDS TcUnit.FB_TestSuite
 VAR
 END_VAR
 ]]></Declaration>
@@ -28,7 +28,7 @@ __DELETE(mockDispose);
 // @TEST-ASSSERT
 AssertTrue(
 	Condition := disposed,
-	Message := 'OnDispose was not correctly triggered in the MockDisposable'
+	Message := 'FB_exit was not correctly triggered in the MockDisposable'
 );
 
 TEST_FINISHED();]]></ST>
@@ -53,7 +53,7 @@ mockDispose^.Dispose();
 // @TEST-ASSSERT
 AssertTrue(
 	Condition := disposed,
-	Message := 'OnDispose was not correctly triggered in the MockDisposable'
+	Message := 'FB_exit was not correctly triggered in the MockDisposable'
 );
 
 TEST_FINISHED();]]></ST>
