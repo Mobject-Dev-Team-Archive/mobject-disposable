@@ -8,7 +8,7 @@
 
 ## The mobject-disposable Library
 
-This is one of the many libraries of mobject. This library focuses on the handling of disposing dynamic objects.
+This is one of the many libraries of [mobject](http://mobject.org). This library focuses on the handling of disposing dynamic objects.
 
 ## What is mobject?
 
