@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0
+
+- Changed status from alpha to beta.
+- Updated documentation to support dark mode.
+- Library built using 4024.53.
+
 ## 0.3.1
 
 ### Disposable

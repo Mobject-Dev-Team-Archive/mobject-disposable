@@ -1,6 +1,8 @@
-<p align="center">
-  <img width="460"  src="./docs/images/logo.svg">
-</p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./docs/images/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./docs/images/logo-light.svg">
+    <img alt="Mobject logo" img width="460" src="/docs/images/logo-light.svg">
+  </picture>
 
 ## The mobject-disposable Library
 
@@ -20,4 +22,4 @@ The documentation for this project can be found [here](https://mobject-dev-team.
 
 ## Versions
 
-- TcXaeShell 3.1.4024.42
+- TcXaeShell 3.1.4024.53
