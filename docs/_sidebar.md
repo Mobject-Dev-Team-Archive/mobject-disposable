@@ -6,11 +6,11 @@
 
   - Classes
 
-    - [Disposable](disposable.md)
+    - [Disposable](Disposable.md)
 
   - Interfaces
 
-    - [I_Disposable](i-disposable.md)
+    - [I_Disposable](I_Disposable.md)
 
 - Guides
 
