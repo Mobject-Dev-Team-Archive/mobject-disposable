@@ -1,4 +1,4 @@
-# Dispose Abstract Class
+# Disposable Class
 
 ## Definition
 
@@ -7,7 +7,7 @@
 | Namespace   | mobject-disposable              |
 | Library     | mobject-disposable              |
 | Inheritance | None                            |
-| Implements  | [I_Disposable](i-disposable.md) |
+| Implements  | [I_Disposable](I_Disposable.md) |
 
 ## Remarks
 
