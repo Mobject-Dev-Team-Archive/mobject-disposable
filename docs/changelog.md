@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1-beta
+
+- Minor style change, adding public to Dispose method
+
 ## v1.1.0-beta
 
 - Changed to make compatible with TwinCAT 4026 as the line \_\_DELETE(THIS) is no longer supported.
