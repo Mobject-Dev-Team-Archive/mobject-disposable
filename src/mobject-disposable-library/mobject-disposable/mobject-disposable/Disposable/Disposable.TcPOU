@@ -12,7 +12,7 @@ END_VAR]]></Declaration>
     </Implementation>
     <Folder Name="Destructor" Id="{a244c56d-214c-0539-02cc-30986d16b566}" />
     <Method Name="Dispose" Id="{6c98f403-5dd6-4f9d-bc0a-e406c48a07a8}">
-      <Declaration><![CDATA[METHOD Dispose
+      <Declaration><![CDATA[METHOD PUBLIC Dispose
 VAR
 	pDisposable : POINTER TO Disposable;
 END_VAR]]></Declaration>
