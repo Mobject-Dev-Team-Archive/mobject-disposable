@@ -4,10 +4,7 @@
     <Declaration><![CDATA[INTERFACE I_Disposable EXTENDS __System.IQueryInterface  
 ]]></Declaration>
     <Method Name="Dispose" Id="{860d07a8-49bb-4a9d-a729-17f246fb69b8}">
-      <Declaration><![CDATA[METHOD Dispose
-VAR_INPUT
-END_VAR
-]]></Declaration>
+      <Declaration><![CDATA[METHOD PUBLIC Dispose]]></Declaration>
     </Method>
   </Itf>
 </TcPlcObject>
