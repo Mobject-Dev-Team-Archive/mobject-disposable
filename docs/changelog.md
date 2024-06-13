@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.0-beta
+
+- Changed to make compatible with TwinCAT 4026 as the line \_\_DELETE(THIS) is no longer supported.
+
 ## v1.0.0-beta
 
 - Changed status from alpha to beta.

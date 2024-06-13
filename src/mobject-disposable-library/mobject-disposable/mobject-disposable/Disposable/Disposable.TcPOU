@@ -14,9 +14,11 @@ END_VAR]]></Declaration>
     <Method Name="Dispose" Id="{6c98f403-5dd6-4f9d-bc0a-e406c48a07a8}">
       <Declaration><![CDATA[METHOD Dispose
 VAR
+	pDisposable : POINTER TO Disposable;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[__DELETE(THIS);]]></ST>
+        <ST><![CDATA[pDisposable := THIS;
+__DELETE(pDisposable);]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{0d1dd945-173c-0626-2abd-474b81e0db04}" FolderPath="Destructor\">
